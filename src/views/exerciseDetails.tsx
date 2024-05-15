@@ -1,5 +1,5 @@
-import {View, Text, Alert, Button} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import {View, Text, Alert, Button, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import tw from 'twrnc';
 
@@ -11,38 +11,43 @@ function getYouTubeVideoId(url: any) {
 const ExerciseDetails = ({route}: {route: any}) => {
   const {exercise} = route.params;
   const videoId = getYouTubeVideoId(`${exercise.video_url}`);
-  const [playing, setPlaying] = useState(false);
+  const [isInstructionsExtended, setInstructionsExtended] = useState(false);
 
-  const onStateChange = useCallback((state: any) => {
-    if (state === 'ended') {
-      setPlaying(false);
-      Alert.alert('video has finished playing!');
-    }
-  }, []);
-
-  const togglePlaying = useCallback(() => {
-    setPlaying(prev => !prev);
-  }, []);
   return (
-    <View style={tw`flex justify-center items-center bg-gray-800 h-full`}>
-      <Text>Name: {exercise.name}</Text>
-      <Text>Type: {exercise.type}</Text>
-      <Text>Muscle: {exercise.muscle}</Text>
-      <Text>Equipment: {exercise.equipment}</Text>
-      <Text>Difficulty: {exercise.difficulty}</Text>
-      <Text>Instructions: {exercise.instructions}</Text>
-      <View style={tw` z-10`}>
-      <YoutubePlayer
-        height={200}
-        width={280}
-        play={playing}
-        videoId={videoId}
-        onChangeState={onStateChange}
-        onError={(error) => console.error('Video Error:', error)}
-      />
-      <Button title={playing ? 'pause' : 'play'} onPress={togglePlaying} />
+    <ScrollView>
+      <View style={tw`flex p-2`}>
+        <View style={[tw` gap-1 mb-2 bg-white p-2 m-1 rounded-md`]}>
+          <Text style={tw`text-black text-xl capitalize`}>{exercise.name}</Text>
+          <Text style={tw`text-gray-500 capitalize`}>
+            {exercise.muscle} | {exercise.equipment}
+          </Text>
+        </View>
+        <View style={[tw` gap-1 mb-4 bg-white p-2 m-1 rounded-md`]}>
+          <Text
+            style={tw`text-gray-600 capitalize text-base`}
+            numberOfLines={!isInstructionsExtended ? 6 : 0}>
+            {exercise.instructions}
+          </Text>
+          <Text
+            style={tw`text-gray-800 self-center font-bold`}
+            onPress={() => {
+              setInstructionsExtended(!isInstructionsExtended);
+            }}>
+            {!isInstructionsExtended ? `See More...` : `See Less`}
+          </Text>
+        </View>
+
+        <View style={tw`bg-white p-2 m-1 rounded-md z-10`}>
+          <YoutubePlayer
+            height={200}
+            width={320}
+            play={false}
+            videoId={videoId}
+            onError={error => console.error('Video Error:', error)}
+          />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
