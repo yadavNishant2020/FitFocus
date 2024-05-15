@@ -1,17 +1,16 @@
 import React from 'react';
-import { View, FlatList, Text, TouchableOpacity } from 'react-native'; // Import TouchableOpacity
+import { TouchableOpacity, Text } from 'react-native';
 import tw from 'twrnc';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
-import { Exercise } from '../interfaces';
+import { ExerciseListProps } from '../interfaces';
 
-const ExerciseList = ({ item }: {item : Exercise}) => {
-  const navigation = useNavigation(); // Use useNavigation hook to get navigation object
+const ExerciseList: React.FC<ExerciseListProps> = ({ item, navigation }) => {
+  const handlePress = () => {
+    navigation.navigate('ExerciseDetails', { exerciseName: item.name });
+  };
+
   return (
-    <TouchableOpacity
-      style={[tw`bg-white p-2 m-2 rounded-md gap-1`, { elevation: 3 }]}
-      onPress={() => navigation.navigate('ExerciseDetails', { exercise: item })}
-    >
-      <Text style={tw`text-black text-lg capitalize`}>{item.name}</Text>
+    <TouchableOpacity onPress={handlePress} style={[tw`bg-white p-2 m-2 rounded-md gap-1`, { elevation: 3 }]}>
+       <Text style={tw`text-black text-lg capitalize`}>{item.name}</Text>
       <Text style={tw`text-gray-400 capitalize`}>
         {item.muscle} | {item.equipment}
       </Text>

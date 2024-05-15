@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Exercises from '../views --notUsing/exercises';
+import Exercises from '../views/exercises';
 
 const Tab = createBottomTabNavigator();
 
