@@ -3128,9 +3128,14 @@ __metadata:
     react-native-gesture-handler: ^2.16.2
     react-native-safe-area-context: ^4.10.1
     react-native-screens: ^3.31.1
+    react-native-video: ^6.0.0
+    react-native-webview: ^13.10.2
+    react-native-youtube: ^2.0.2
+    react-native-youtube-iframe: ^2.3.0
     react-test-renderer: 18.2.0
     twrnc: ^4.2.0
     typescript: 5.0.4
+    unsplash-js: ^7.0.19
   languageName: unknown
   linkType: soft
 
@@ -4660,17 +4665,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"escape-string-regexp@npm:2.0.0, escape-string-regexp@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "escape-string-regexp@npm:2.0.0"
+  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
+  languageName: node
+  linkType: hard
+
 "escape-string-regexp@npm:^1.0.5":
   version: 1.0.5
   resolution: "escape-string-regexp@npm:1.0.5"
   checksum: 6092fda75c63b110c706b6a9bfde8a612ad595b628f0bd2147eea1d3406723020810e591effc7db1da91d80a71a737a313567c5abb3813e8d9c71f4aa595b410
-  languageName: node
-  linkType: hard
-
-"escape-string-regexp@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "escape-string-regexp@npm:2.0.0"
-  checksum: 9f8a2d5743677c16e85c810e3024d54f0c8dea6424fad3c79ef6666e81dd0846f7437f5e729dfcdac8981bc9e5294c39b4580814d114076b8d36318f46ae4395
   languageName: node
   linkType: hard
 
@@ -4957,6 +4962,13 @@ __metadata:
   version: 5.0.1
   resolution: "event-target-shim@npm:5.0.1"
   checksum: 1ffe3bb22a6d51bdeb6bf6f7cf97d2ff4a74b017ad12284cc9e6a279e727dc30a5de6bb613e5596ff4dc3e517841339ad09a7eec44266eccb1aa201a30448166
+  languageName: node
+  linkType: hard
+
+"events@npm:^3.2.0":
+  version: 3.3.0
+  resolution: "events@npm:3.3.0"
+  checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
   languageName: node
   linkType: hard
 
@@ -5729,7 +5741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.2.4":
+"invariant@npm:2.2.4, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -8254,7 +8266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.0, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -8397,6 +8409,59 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 1fc61cf7a223b3ef1c8000e74416c8953561c5fa0861557da43659db62a640e37fb51fbdc35dae810a665881a7aa9eeaf1873e90f67404b4dda53a672464a7fe
+  languageName: node
+  linkType: hard
+
+"react-native-video@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "react-native-video@npm:6.0.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 3320cf9b5d5845dd72d6fef3cf7d8d5cf543f6bcb78d8d1ea5a8eb6bb90d62bd43e467aa14f6d6e1b2170e3a95c3f739556c26deebe0239f1d45be152eb719a2
+  languageName: node
+  linkType: hard
+
+"react-native-webview@npm:^13.10.2":
+  version: 13.10.2
+  resolution: "react-native-webview@npm:13.10.2"
+  dependencies:
+    escape-string-regexp: 2.0.0
+    invariant: 2.2.4
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 9293bdcf3aae09b7f52165751d8c9c1e6810527fa895a031107785c7a800ee374d7a0993483d45b06bfc9195c4bbc709541b5ba69e0833bc6d4e55f5b55095ec
+  languageName: node
+  linkType: hard
+
+"react-native-youtube-iframe@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "react-native-youtube-iframe@npm:2.3.0"
+  dependencies:
+    events: ^3.2.0
+  peerDependencies:
+    react: ">=16.8.6"
+    react-native: ">=0.60"
+    react-native-web-webview: ">=1.0.2"
+    react-native-webview: ">=7.0.0"
+  peerDependenciesMeta:
+    react-native-web-webview:
+      optional: true
+    react-native-webview:
+      optional: true
+  checksum: c549f3557c30fa9236eb7209ad3dac95482e62319350ddcfdfacb7cb10ca50e822c1ae553afd6fc3b22408a9ae14e3119dcd99ae6c73da50cdb286e8c9f5812f
+  languageName: node
+  linkType: hard
+
+"react-native-youtube@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "react-native-youtube@npm:2.0.2"
+  dependencies:
+    prop-types: ^15.5.0
+  peerDependencies:
+    react-native: ">=0.60"
+  checksum: 569969ce87c5752ad6e1d03b9ea019df3c3d45561ef522fa1964abbd3bc970f164de97fb421c9d1edf04b495e2f145bf2f8c5b1974ef72817e87d12418353d87
   languageName: node
   linkType: hard
 
@@ -9861,6 +9926,13 @@ __metadata:
   version: 1.0.0
   resolution: "unpipe@npm:1.0.0"
   checksum: 4fa18d8d8d977c55cb09715385c203197105e10a6d220087ec819f50cb68870f02942244f1017565484237f1f8c5d3cd413631b1ae104d3096f24fdfde1b4aa2
+  languageName: node
+  linkType: hard
+
+"unsplash-js@npm:^7.0.19":
+  version: 7.0.19
+  resolution: "unsplash-js@npm:7.0.19"
+  checksum: 9284a65ab393108a355cd372b33d5384166dabbe4cb1aa730983ebebe85ebe76025fefedb073fa24689e65828a4f28c347cf0735c9b51570deeb41f0aa530270
   languageName: node
   linkType: hard
 

@@ -5,7 +5,7 @@ import { ExerciseListProps } from '../interfaces';
 
 const ExerciseList: React.FC<ExerciseListProps> = ({ item, navigation }) => {
   const handlePress = () => {
-    navigation.navigate('ExerciseDetails', { exerciseName: item.name });
+    navigation.navigate('ExerciseDetails', { exercise: item });
   };
 
   return (
