@@ -10,7 +10,6 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Home" component={Exercises} />
-          
         </Tab.Navigator>
       </NavigationContainer>
     );
