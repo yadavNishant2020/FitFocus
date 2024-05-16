@@ -5,6 +5,7 @@ export interface Exercise {
   equipment: string;
   difficulty: string;
   instructions: string;
+  video_url: string;
 }
 
 export interface ExerciseListProps {

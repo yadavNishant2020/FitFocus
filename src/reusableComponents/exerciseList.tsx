@@ -9,7 +9,7 @@ const ExerciseList: React.FC<ExerciseListProps> = ({ item, navigation }) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} style={[tw`bg-white p-2 m-2 rounded-md gap-1`, { elevation: 3 }]}>
+    <TouchableOpacity activeOpacity={0.7} onPress={handlePress} style={[tw`bg-white p-2 m-2 rounded-md gap-1`, { elevation: 3 }]}>
        <Text style={tw`text-black text-lg capitalize`}>{item.name}</Text>
       <Text style={tw`text-gray-400 capitalize`}>
         {item.muscle} | {item.equipment}
