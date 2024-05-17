@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import tw from 'twrnc';
 
 const WorkoutLogger = ({route}: {route: any}) => {
@@ -13,7 +13,7 @@ const WorkoutLogger = ({route}: {route: any}) => {
   const [reps, setReps] = useState('');
   const [sets, setSets] = useState<any[]>([]);
   const [comment, setComment] = useState('');
-  const [IsCommentBoxOpen, setisCommentBoxOpen] = useState(false);
+  const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
 
   const {exercise} = route.params;
 
@@ -35,7 +35,8 @@ const WorkoutLogger = ({route}: {route: any}) => {
     setSets([...sets, newSet]);
     setWeight('');
     setReps('');
-    setisCommentBoxOpen(false);
+    setComment('');
+    setIsCommentBoxOpen(false);
   };
 
   return (
@@ -69,12 +70,10 @@ const WorkoutLogger = ({route}: {route: any}) => {
                       <Text style={tw`text-gray-700 capitalize text-lg `}>
                         {set.weight
                           ? `${set.weight} Kg X ${set.reps} Reps`
-                          : set.default
-                          ? `Set ${index}`
-                          : ''}
+                          : `Set ${index + 1}`}
                       </Text>
                       <Text style={tw`text-gray-500 capitalize `}>
-                        {comment}
+                        {set.comment}
                       </Text>
                     </View>
                   </View>
@@ -134,11 +133,11 @@ const WorkoutLogger = ({route}: {route: any}) => {
         </View>
       </ScrollView>
 
-      {IsCommentBoxOpen ? (
+      {isCommentBoxOpen ? (
         <TextInput
           style={[
             tw`gap-1 mb-2 bg-white p-2 m-1 rounded-md text-gray-700 `,
-            {elevation: 2},
+            {elevation: 4},
           ]}
           value={comment}
           onChangeText={handleCommentChange}
@@ -169,11 +168,11 @@ const WorkoutLogger = ({route}: {route: any}) => {
       </View>
       <View style={[tw`gap-1 flex-row justify-evenly bg-white p-2 pt-0`]}>
         <TouchableOpacity
-          onPress={() => setisCommentBoxOpen(!IsCommentBoxOpen)}
+          onPress={() => setIsCommentBoxOpen(!isCommentBoxOpen)}
           activeOpacity={0.9}
           style={tw`p-1 bg-gray-500 w-1/2 h-12 rounded-full justify-center items-center`}>
           <Text style={tw` text-white`}>
-            {IsCommentBoxOpen ? 'Remove Comment' : 'Add Comment'}
+            {isCommentBoxOpen ? 'Remove Comment' : 'Add Comment'}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
