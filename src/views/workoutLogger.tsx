@@ -4,9 +4,15 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  LayoutAnimation,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import tw from 'twrnc';
+import {LineChart} from 'react-native-chart-kit';
+import {Dimensions} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const screenWidth = Dimensions.get('window').width;
 
 const WorkoutLogger = ({route}: {route: any}) => {
   const [weight, setWeight] = useState('');
@@ -14,7 +20,8 @@ const WorkoutLogger = ({route}: {route: any}) => {
   const [sets, setSets] = useState<any[]>([]);
   const [comment, setComment] = useState('');
   const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
-
+  const [isProgressBoxOpen, setIsProgressBoxOpen] = useState(true);
+ 
   const {exercise} = route.params;
 
   const handleWeightChange = (text: string) => {
@@ -39,6 +46,28 @@ const WorkoutLogger = ({route}: {route: any}) => {
     setIsCommentBoxOpen(false);
   };
 
+  useLayoutEffect(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  }, [isProgressBoxOpen]);
+
+  const demoData = [
+    {date: 'Feb-15', weight: 55, reps: 10},
+    {date: 'Feb-16', weight: 60, reps: 10},
+    {date: 'Feb-17', weight: 70, reps: 10},
+    {date: 'Feb-18', weight: 65, reps: 10},
+    {date: 'Feb-19', weight: 68, reps: 10},
+  ];
+
+  const chartData = {
+    labels: demoData.map(set => set.date),
+    datasets: [
+      {
+        data: demoData.map(set => set.weight * set.reps),
+        strokeWidth: 2,
+      },
+    ],
+  };
+
   return (
     <>
       <View>
@@ -50,8 +79,53 @@ const WorkoutLogger = ({route}: {route: any}) => {
         </View>
       </View>
       <ScrollView>
+        <View style={[tw`gap-1 mb-2 bg-[#1F2937] p-4 m-1 rounded-md`]}>
+          <View style={tw`flex-row justify-between items-center`}>
+            <Text style={tw`text-white pb-4`}>Progress</Text>
+            <View style={tw`text-white pb-4`}>
+              {isProgressBoxOpen ? (
+                <Text
+                  style={tw` text-xl w-4 h-6`}
+                  onPress={() => setIsProgressBoxOpen(!isProgressBoxOpen)}>
+                  <MaterialCommunityIcons
+                    name="close"
+                    color="white"
+                    size={20}
+                  />
+                </Text>
+              ) : (
+                <Text
+                  style={tw` text-3xl w-4 h-6`}
+                  onPress={() => setIsProgressBoxOpen(!isProgressBoxOpen)}>
+                  <MaterialCommunityIcons name="plus" color="white" size={20} />
+                </Text>
+              )}
+            </View>
+          </View>
+          {isProgressBoxOpen ? (
+            <LineChart
+              data={chartData}
+              width={screenWidth - 25}
+              height={220}
+              chartConfig={{
+                backgroundColor: '#1F2937',
+                backgroundGradientFrom: '#1F2937',
+                backgroundGradientTo: '#1F2937',
+                decimalPlaces: 0,
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,                
+                propsForDots: {
+                  r: '6',
+                  strokeWidth: '2',
+                  stroke: '#ffa726',
+                },
+              }}
+              bezier
+            />
+          ) : null}
+        </View>
         <View style={[tw`gap-2 mb-2 m-1 rounded-md`]}>
-          <View style={[tw`bg-white p-2 rounded-md`]}>
+          <View style={[tw`bg-white p-2`]}>
             <Text style={tw`text-gray-800 capitalize pl-2`}>Today</Text>
             {sets.length > 0 ? (
               sets.map((set, index) => (
@@ -67,7 +141,7 @@ const WorkoutLogger = ({route}: {route: any}) => {
                       {index + 1}
                     </Text>
                     <View>
-                      <Text style={tw`text-gray-700 capitalize text-lg `}>
+                      <Text style={tw`text-gray-700 capitalize text-lg pt-3`}>
                         {set.weight
                           ? `${set.weight} Kg X ${set.reps} Reps`
                           : `Set ${index + 1}`}
@@ -77,8 +151,15 @@ const WorkoutLogger = ({route}: {route: any}) => {
                       </Text>
                     </View>
                   </View>
-                  <Text style={tw`text-gray-700 capitalize text-lg`}>!</Text>
+                  <Text style={tw`text-gray-700 capitalize text-lg`}>
+                    <MaterialCommunityIcons
+                      name="dots-vertical"
+                      color="Black"
+                      size={20}
+                    />
+                  </Text>
                 </View>
+                
               ))
             ) : (
               <>
@@ -95,7 +176,13 @@ const WorkoutLogger = ({route}: {route: any}) => {
                       Set 1
                     </Text>
                   </View>
-                  <Text style={tw`text-gray-700 capitalize text-lg`}>!</Text>
+                  <Text style={tw`text-gray-700 capitalize text-lg`}>
+                    <MaterialCommunityIcons
+                      name="dots-vertical"
+                      color="Black"
+                      size={20}
+                    />
+                  </Text>
                 </View>
                 <View style={tw`flex-row items-center justify-between p-2`}>
                   <View style={tw`flex-row items-center gap-4`}>
@@ -110,7 +197,13 @@ const WorkoutLogger = ({route}: {route: any}) => {
                       Set 2
                     </Text>
                   </View>
-                  <Text style={tw`text-gray-700 capitalize text-lg`}>!</Text>
+                  <Text style={tw`text-gray-700 capitalize text-lg`}>
+                    <MaterialCommunityIcons
+                      name="dots-vertical"
+                      color="Black"
+                      size={20}
+                    />
+                  </Text>
                 </View>
                 <View style={tw`flex-row items-center justify-between p-2`}>
                   <View style={tw`flex-row items-center gap-4`}>
@@ -125,27 +218,31 @@ const WorkoutLogger = ({route}: {route: any}) => {
                       Set 3
                     </Text>
                   </View>
-                  <Text style={tw`text-gray-700 capitalize text-lg`}>!</Text>
+                  <Text style={tw`text-gray-700 capitalize text-lg`}>
+                    <MaterialCommunityIcons
+                      name="dots-vertical"
+                      color="Black"
+                      size={20}
+                    />
+                  </Text>
                 </View>
               </>
             )}
           </View>
         </View>
       </ScrollView>
-
       {isCommentBoxOpen ? (
         <TextInput
           style={[
-            tw`gap-1 mb-2 bg-white p-2 m-1 rounded-md text-gray-700 `,
+            tw`gap-1 mb-2 bg-gray-500 p-2 m-1 rounded-md text-white `,
             {elevation: 4},
           ]}
           value={comment}
           onChangeText={handleCommentChange}
-          placeholder="Please write your comment."
-          placeholderTextColor={'#374151'}
+          placeholder="Please write your comment here."
+          placeholderTextColor={'#ffffff'}
         />
       ) : null}
-
       <View style={[tw`gap-1 flex-row justify-evenly bg-white p-2 pb-0`]}>
         <View style={tw`p-1 w-1/2 h-3/5`}>
           <Text style={tw`text-gray-700`}>Weight(Kg)</Text>

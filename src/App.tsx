@@ -48,6 +48,7 @@ const App = () => {
           name="ExerciseDetails"
           component={ExerciseDetails}
           options={{headerShown: true, headerTitle: 'Exercise Details'}}
+          
         />
         <Stack.Screen
           name="WorkoutLogger"
