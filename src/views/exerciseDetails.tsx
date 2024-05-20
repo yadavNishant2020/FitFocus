@@ -11,7 +11,7 @@ import React, {useState, useLayoutEffect} from 'react';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import tw from 'twrnc';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import WorkoutLogger from './workoutLogger';
+import Header from '../reusableComponents/header';
 
 type RootStackParamList = {
   WorkoutLogger: {exercise: any};
@@ -42,12 +42,7 @@ const ExerciseDetails = ({route}: {route: any}) => {
   return (
     <ScrollView>
       <View style={tw`flex p-2`}>
-        <View style={[tw`gap-1 mb-2 bg-white p-2 m-1 rounded-md`]}>
-          <Text style={tw`text-black text-xl capitalize`}>{exercise.name}</Text>
-          <Text style={tw`text-gray-500 capitalize`}>
-            {exercise.muscle} | {exercise.equipment}
-          </Text>
-        </View>
+       <Header exercise={exercise} />
         <View style={[tw`gap-1 mb-4 bg-white p-2 m-1 rounded-md`]}>
           <Text
             style={tw`text-gray-600 capitalize text-base leading-7`}

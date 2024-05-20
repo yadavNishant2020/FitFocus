@@ -13,6 +13,7 @@ import {LineChart} from 'react-native-chart-kit';
 import {Dimensions} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {retrieveSetData, storeSetData} from '../services/storage.services';
+import Header from '../reusableComponents/header';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -104,26 +105,7 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
   return (
     <>
       <View>
-        <View
-          style={[
-            tw`gap-1 mb-2 bg-white p-2 m-1 rounded-md flex-row justify-between items-center`,
-          ]}>
-          <View>
-            <Text style={tw`text-black text-xl capitalize`}>
-              {exercise.name}
-            </Text>
-            <Text style={tw`text-gray-500 capitalize`}>
-              {exercise.muscle} | {exercise.equipment}
-            </Text>
-          </View>
-          <TouchableOpacity onPress={handleInfoPress}>
-            <MaterialCommunityIcons
-              name="information"
-              size={35}
-              style={tw`text-gray-700`}
-            />
-          </TouchableOpacity>
-        </View>
+        <Header exercise={exercise} onPressInfo={handleInfoPress} />
       </View>
       <ScrollView>
         <View style={[tw`gap-1 mb-2 bg-[#1F2937] p-4 m-1 rounded-md`]}>
@@ -235,13 +217,13 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
               ))
             ) : (
               <>
-                <View style={tw` p-2 self-center gap-4 items-center`}>
+                <View style={tw` p-2 self-center gap-2 items-center`}>
                   <MaterialCommunityIcons
                     name="dumbbell"
                     color="black"
-                    size={30}
+                    size={25}
                   />
-                  <Text style={tw`text-gray-600  text-xl`}>
+                  <Text style={tw`text-gray-600  text-lg`}>
                     Please add some set data.
                   </Text>
                 </View>
