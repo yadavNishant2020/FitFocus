@@ -6,6 +6,7 @@ import Exercises from './views/exercises';
 import ExerciseDetails from './views/exerciseDetails';
 import {Text} from 'react-native';
 import WorkoutLogger from './views/workoutLogger';
+import Home from './views/home';
 
 // Demo components for other tab screens
 const Profile = () => <Text>Profile Screen</Text>;
@@ -38,6 +39,11 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="Exercises"
           component={Exercises}
