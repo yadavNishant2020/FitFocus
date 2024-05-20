@@ -5,16 +5,18 @@ import {
   TextInput,
   TouchableOpacity,
   LayoutAnimation,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import tw from 'twrnc';
 import {LineChart} from 'react-native-chart-kit';
 import {Dimensions} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {retrieveSetData, storeSetData} from '../services/storage.services';
 
 const screenWidth = Dimensions.get('window').width;
 
-const WorkoutLogger = ({route}: {route: any}) => {
+const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   const [sets, setSets] = useState<any[]>([]);
@@ -34,18 +36,33 @@ const WorkoutLogger = ({route}: {route: any}) => {
   const handleCommentChange = (text: string) => {
     setComment(text);
   };
-  const handleComplete = () => {
-    const newSet = {
-      weight: weight,
-      reps: reps,
-      comment: comment,
-    };
-    setSets([...sets, newSet]);
+
+  const handleComplete = async () => {
+    if (!weight || !reps) {
+      Alert.alert('Invalid Input', 'Please enter both weight and reps.');
+      return;
+    }
+    const newSet = {weight, reps, comment};
+    const updatedSets = [...sets, newSet] as any;
+    setSets(updatedSets);
+    await storeSetData(exercise.name, updatedSets);
     setWeight('');
     setReps('');
     setComment('');
     setIsCommentBoxOpen(false);
   };
+
+  const handleInfoPress = () => {
+    navigation.navigate('ExerciseDetails', {exercise});
+  };
+
+  useEffect(() => {
+    const fetchSetData = async () => {
+      const storedSetData = await retrieveSetData(exercise.name); // Retrieve data for the current exercise name
+      setSets(storedSetData);
+    };
+    fetchSetData();
+  }, [exercise.name]);
 
   useLayoutEffect(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -68,6 +85,7 @@ const WorkoutLogger = ({route}: {route: any}) => {
       },
     ],
   };
+
   const handleUpdateSet = (index: number) => {
     setWeight(sets[index].weight);
     setReps(sets[index].reps);
@@ -86,11 +104,25 @@ const WorkoutLogger = ({route}: {route: any}) => {
   return (
     <>
       <View>
-        <View style={[tw`gap-1 mb-2 bg-white p-2 m-1 rounded-md`]}>
-          <Text style={tw`text-black text-xl capitalize`}>{exercise.name}</Text>
-          <Text style={tw`text-gray-500 capitalize`}>
-            {exercise.muscle} | {exercise.equipment}
-          </Text>
+        <View
+          style={[
+            tw`gap-1 mb-2 bg-white p-2 m-1 rounded-md flex-row justify-between items-center`,
+          ]}>
+          <View>
+            <Text style={tw`text-black text-xl capitalize`}>
+              {exercise.name}
+            </Text>
+            <Text style={tw`text-gray-500 capitalize`}>
+              {exercise.muscle} | {exercise.equipment}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={handleInfoPress}>
+            <MaterialCommunityIcons
+              name="information"
+              size={35}
+              style={tw`text-gray-700`}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <ScrollView>
@@ -209,10 +241,10 @@ const WorkoutLogger = ({route}: {route: any}) => {
                     color="black"
                     size={30}
                   />
-                    <Text style={tw`text-gray-600  text-xl`}>
-                      Please add some set data.
-                    </Text>
-                  </View>
+                  <Text style={tw`text-gray-600  text-xl`}>
+                    Please add some set data.
+                  </Text>
+                </View>
               </>
             )}
           </View>

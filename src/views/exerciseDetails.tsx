@@ -1,15 +1,26 @@
-import { View, Text, ScrollView, LayoutAnimation, Platform, UIManager, TouchableOpacity } from 'react-native';
-import React, { useState, useLayoutEffect } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  LayoutAnimation,
+  Platform,
+  UIManager,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useState, useLayoutEffect} from 'react';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import tw from 'twrnc';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import WorkoutLogger from './workoutLogger';
 
 type RootStackParamList = {
-  WorkoutLogger: { exercise: any }; 
+  WorkoutLogger: {exercise: any};
 };
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
@@ -18,11 +29,11 @@ function getYouTubeVideoId(url: any) {
   return match && match[1];
 }
 
-const ExerciseDetails = ({ route }: { route: any }) => {
-  const { exercise } = route.params;
+const ExerciseDetails = ({route}: {route: any}) => {
+  const {exercise} = route.params;
   const videoId = getYouTubeVideoId(exercise.video_url);
   const [isInstructionsExtended, setInstructionsExtended] = useState(false);
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>(); 
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   useLayoutEffect(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -58,12 +69,16 @@ const ExerciseDetails = ({ route }: { route: any }) => {
             width={320}
             play={false}
             videoId={videoId}
-            onError={(error) => console.error('Video Error:', error)}
+            onError={error => console.error('Video Error:', error)}
           />
         </View>
-        <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('WorkoutLogger', { exercise })}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('WorkoutLogger', {exercise})}>
           <View style={tw`bg-gray-600 p-2 m-1 rounded-md z-10`}>
-            <Text style={tw`text-white self-center font-bold py-1 text-lg `}>Workout Logger</Text>
+            <Text style={tw`text-white self-center font-bold py-1 text-lg `}>
+              Workout Logger
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
