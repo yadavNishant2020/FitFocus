@@ -5,7 +5,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Exercises from './views/exercises';
 import ExerciseDetails from './views/exerciseDetails';
 import {Text} from 'react-native';
-import workoutLogger from './views/workoutLogger';
 import WorkoutLogger from './views/workoutLogger';
 
 // Demo components for other tab screens

@@ -21,7 +21,6 @@ const WorkoutLogger = ({route}: {route: any}) => {
   const [comment, setComment] = useState('');
   const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
   const [isProgressBoxOpen, setIsProgressBoxOpen] = useState(true);
-  const [isWarningBoxOpen, setIsWarningBoxOpen] = useState(false);
   const [visibleDropdown, setVisibleDropdown] = useState<number | null>(null);
 
   const {exercise} = route.params;
@@ -51,21 +50,6 @@ const WorkoutLogger = ({route}: {route: any}) => {
   useLayoutEffect(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   }, [isProgressBoxOpen]);
-
-  useEffect(() => {
-    let timer: any;
-    if (isWarningBoxOpen) {
-      timer = setTimeout(() => {
-        setIsWarningBoxOpen(false);
-      }, 2000);
-    }
-
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, [isWarningBoxOpen]);
 
   const demoData = [
     {date: 'Feb-15', weight: 55, reps: 10},
@@ -120,19 +104,19 @@ const WorkoutLogger = ({route}: {route: any}) => {
             <View style={tw`text-white pb-4`}>
               {isProgressBoxOpen ? (
                 <Text
-                  style={tw` text-xl w-4 h-6`}
+                  style={tw` text-xl w-6 h-6`}
                   onPress={() => setIsProgressBoxOpen(!isProgressBoxOpen)}>
                   <MaterialCommunityIcons
                     name="close"
                     color="white"
-                    size={20}
+                    size={25}
                   />
                 </Text>
               ) : (
                 <Text
-                  style={tw` text-3xl w-4 h-6`}
+                  style={tw` text-3xl w-6 h-6`}
                   onPress={() => setIsProgressBoxOpen(!isProgressBoxOpen)}>
-                  <MaterialCommunityIcons name="plus" color="white" size={20} />
+                  <MaterialCommunityIcons name="plus" color="white" size={25} />
                 </Text>
               )}
             </View>
@@ -218,94 +202,17 @@ const WorkoutLogger = ({route}: {route: any}) => {
                 </View>
               ))
             ) : (
-              //dummy data
               <>
-                {isWarningBoxOpen ? (
-                  <View
-                    style={tw`absolute bg-white border rounded-md shadow-lg p-1 top-10 right-15 z-100`}>
-                    <Text style={tw`text-black`}>
+                <View style={tw` p-2 self-center gap-4 items-center`}>
+                  <MaterialCommunityIcons
+                    name="dumbbell"
+                    color="black"
+                    size={30}
+                  />
+                    <Text style={tw`text-gray-600  text-xl`}>
                       Please add some set data.
                     </Text>
                   </View>
-                ) : null}
-                <View style={tw`flex-row items-center justify-between p-2`}>
-                  <View style={tw`flex-row items-center gap-4`}>
-                    <Text
-                      style={[
-                        tw`text-white capitalize text-lg bg-gray-600 rounded-full w-10 h-10 text-center `,
-                        {lineHeight: 40},
-                      ]}
-                      onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                      1
-                    </Text>
-                    <Text
-                      style={tw`text-gray-700 capitalize text-lg `}
-                      onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                      Set 1
-                    </Text>
-                  </View>
-                  <Text
-                    style={tw`text-gray-700 capitalize text-lg`}
-                    onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                    <MaterialCommunityIcons
-                      name="dots-vertical"
-                      color="Black"
-                      size={20}
-                    />
-                  </Text>
-                </View>
-                <View style={tw`flex-row items-center justify-between p-2`}>
-                  <View style={tw`flex-row items-center gap-4`}>
-                    <Text
-                      style={[
-                        tw`text-white capitalize text-lg bg-gray-600 rounded-full w-10 h-10 text-center `,
-                        {lineHeight: 40},
-                      ]}
-                      onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                      2
-                    </Text>
-                    <Text
-                      style={tw`text-gray-700 capitalize text-lg `}
-                      onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                      Set 2
-                    </Text>
-                  </View>
-                  <Text
-                    style={tw`text-gray-700 capitalize text-lg`}
-                    onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                    <MaterialCommunityIcons
-                      name="dots-vertical"
-                      color="Black"
-                      size={20}
-                    />
-                  </Text>
-                </View>
-                <View style={tw`flex-row items-center justify-between p-2`}>
-                  <View style={tw`flex-row items-center gap-4`}>
-                    <Text
-                      style={[
-                        tw`text-white capitalize text-lg bg-gray-600 rounded-full w-10 h-10 text-center `,
-                        {lineHeight: 40},
-                      ]}
-                      onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                      3
-                    </Text>
-                    <Text
-                      style={tw`text-gray-700 capitalize text-lg `}
-                      onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                      Set 3
-                    </Text>
-                  </View>
-                  <Text
-                    style={tw`text-gray-700 capitalize text-lg`}
-                    onPress={() => setIsWarningBoxOpen(!isWarningBoxOpen)}>
-                    <MaterialCommunityIcons
-                      name="dots-vertical"
-                      color="Black"
-                      size={20}
-                    />
-                  </Text>
-                </View>
               </>
             )}
           </View>
