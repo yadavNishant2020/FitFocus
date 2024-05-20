@@ -38,28 +38,13 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
     setComment(text);
   };
 
-  const handleComplete = async () => {
-    if (!weight || !reps) {
-      Alert.alert('Invalid Input', 'Please enter both weight and reps.');
-      return;
-    }
-    const newSet = {weight, reps, comment};
-    const updatedSets = [...sets, newSet] as any;
-    setSets(updatedSets);
-    await storeSetData(exercise.name, updatedSets);
-    setWeight('');
-    setReps('');
-    setComment('');
-    setIsCommentBoxOpen(false);
-  };
-
   const handleInfoPress = () => {
     navigation.navigate('ExerciseDetails', {exercise});
   };
 
   useEffect(() => {
     const fetchSetData = async () => {
-      const storedSetData = await retrieveSetData(exercise.name); // Retrieve data for the current exercise name
+      const storedSetData = await retrieveSetData(exercise.name);
       setSets(storedSetData);
     };
     fetchSetData();
@@ -91,8 +76,41 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
     setWeight(sets[index].weight);
     setReps(sets[index].reps);
     setComment(sets[index].comment);
-    const newSets = sets.filter((_, i) => i !== index);
-    setSets(newSets);
+
+    const updatedSets = sets.map((set, i) =>
+      i === index ? {...set, isUpdating: true} : {...set, isUpdating: false},
+    );
+
+    setSets(updatedSets);
+    setVisibleDropdown(null);
+  };
+
+  const handleComplete = async () => {
+    if (!weight || !reps) {
+      Alert.alert('Invalid Input', 'Please enter both weight and reps.');
+      return;
+    }
+
+    const newSet = {weight, reps, comment, isUpdating: false};
+    let updatedSets: any;
+
+    const isUpdatingSet = sets.some(set => set.isUpdating);
+
+    if (isUpdatingSet) {
+      updatedSets = sets.map(set =>
+        set.isUpdating ? newSet : {...set, isUpdating: false},
+      );
+    } else {
+      updatedSets = [...sets, newSet];
+    }
+
+    setSets(updatedSets);
+    await storeSetData(exercise.name, updatedSets);
+
+    setWeight('');
+    setReps('');
+    setComment('');
+    setIsCommentBoxOpen(false);
     setVisibleDropdown(null);
   };
 
@@ -164,7 +182,10 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
               sets.map((set, index) => (
                 <View
                   key={index}
-                  style={tw`flex-row items-center justify-between p-2`}>
+                  style={[
+                    tw`flex-row items-center justify-between p-1 m-1`,
+                    set.isUpdating && tw`bg-gray-300 `,
+                  ]}>
                   <View style={tw`flex-row items-center gap-4`}>
                     <Text
                       style={[
@@ -197,7 +218,6 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
                       size={20}
                     />
                   </Text>
-
                   {visibleDropdown === index && (
                     <View
                       style={tw`absolute right-0 bg-white border rounded-md shadow-lg p-1 bottom-12 z-100`}>
@@ -216,18 +236,16 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
                 </View>
               ))
             ) : (
-              <>
-                <View style={tw` p-2 self-center gap-2 items-center`}>
-                  <MaterialCommunityIcons
-                    name="dumbbell"
-                    color="black"
-                    size={25}
-                  />
-                  <Text style={tw`text-gray-600  text-lg`}>
-                    Please add some set data.
-                  </Text>
-                </View>
-              </>
+              <View style={tw`p-2 self-center gap-2 items-center`}>
+                <MaterialCommunityIcons
+                  name="dumbbell"
+                  color="black"
+                  size={25}
+                />
+                <Text style={tw`text-gray-600 text-lg`}>
+                  Please add some set data.
+                </Text>
+              </View>
             )}
           </View>
         </View>
