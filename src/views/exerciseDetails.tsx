@@ -12,6 +12,7 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 import tw from 'twrnc';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Header from '../reusableComponents/header';
+import LinearGradient from 'react-native-linear-gradient';
 
 type RootStackParamList = {
   WorkoutLogger: {exercise: any};
@@ -40,44 +41,50 @@ const ExerciseDetails = ({route}: {route: any}) => {
   }, [isInstructionsExtended]);
 
   return (
-    <ScrollView>
-      <View style={tw`flex p-2`}>
-       <Header exercise={exercise} />
-        <View style={[tw`gap-1 mb-4 bg-white p-2 m-1 rounded-md`]}>
-          <Text
-            style={tw`text-gray-600 capitalize text-base leading-7`}
-            numberOfLines={!isInstructionsExtended ? 6 : undefined}>
-            {exercise.instructions}
-          </Text>
-          <Text
-            style={tw`text-gray-800 self-center font-bold py-1`}
-            onPress={() => {
-              setInstructionsExtended(!isInstructionsExtended);
-            }}>
-            {!isInstructionsExtended ? `See More...` : `See Less`}
-          </Text>
-        </View>
-
-        <View style={tw`bg-white p-2 m-1 rounded-md z-10`}>
-          <YoutubePlayer
-            height={200}
-            width={320}
-            play={false}
-            videoId={videoId}
-            onError={error => console.error('Video Error:', error)}
-          />
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => navigation.navigate('WorkoutLogger', {exercise})}>
-          <View style={tw`bg-gray-600 p-2 m-1 rounded-md z-10`}>
-            <Text style={tw`text-white self-center font-bold py-1 text-lg `}>
-              Workout Logger
+    <LinearGradient
+      colors={['#000000', '#4B749F']}
+      start={{x: 0.1, y: 0.1}}
+      end={{x: 1, y: 1}}
+      style={[tw`h-full`]}>
+      <ScrollView>
+        <View style={tw`flex p-2`}>
+          <Header exercise={exercise} />
+          <View style={[tw`gap-1 mb-4 bg-[#1f293788] p-2 m-1 rounded-md`]}>
+            <Text
+              style={tw`text-gray-200 capitalize text-base leading-7`}
+              numberOfLines={!isInstructionsExtended ? 6 : undefined}>
+              {exercise.instructions}
+            </Text>
+            <Text
+              style={tw`text-gray-200 self-center font-bold py-1`}
+              onPress={() => {
+                setInstructionsExtended(!isInstructionsExtended);
+              }}>
+              {!isInstructionsExtended ? `See More...` : `See Less`}
             </Text>
           </View>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+
+          <View style={tw`bg-[#1f293788] p-2 m-1 rounded-md z-10`}>
+            <YoutubePlayer
+              height={200}
+              width={320}
+              play={false}
+              videoId={videoId}
+              onError={error => console.error('Video Error:', error)}
+            />
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('WorkoutLogger', {exercise})}>
+            <View style={tw`bg-gray-900 p-2 m-1 rounded-md z-10`}>
+              <Text style={tw`text-white self-center font-bold py-1 text-lg `}>
+                Workout Logger
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 

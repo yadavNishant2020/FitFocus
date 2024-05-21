@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Exercises from './views/exercises';
 import ExerciseDetails from './views/exerciseDetails';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import WorkoutLogger from './views/workoutLogger';
 import Home from './views/home';
 
@@ -47,18 +47,47 @@ const App = () => {
         <Stack.Screen
           name="Exercises"
           component={Exercises}
-          options={{headerShown: true, headerTitle: 'Exercises'}}
+          options={{
+            headerShown: true,
+            headerTitle: 'Exercises',
+            headerTitleStyle: {
+              color: 'white',
+            },
+            headerBackground: () => (
+              <View style={{backgroundColor: 'black', flex: 1}} />
+            ),
+            headerTintColor: 'white',
+          }}
         />
+
         <Stack.Screen
           name="ExerciseDetails"
           component={ExerciseDetails}
-          options={{headerShown: true, headerTitle: 'Exercise Details'}}
-          
+          options={{
+            headerShown: true,
+            headerTitleStyle: {
+              color: 'white',
+            },
+            headerBackground: () => (
+              <View style={{backgroundColor: 'black', flex: 1}} />
+            ),
+            headerTintColor: 'white',
+          }}
         />
         <Stack.Screen
           name="WorkoutLogger"
           component={WorkoutLogger}
-          options={{headerShown: true, headerTitle: `Workout Logger`}}
+          options={{
+            headerShown: true,
+            headerTitle: `Workout Logger`,
+            headerTitleStyle: {
+              color: 'white',
+            },
+            headerBackground: () => (
+              <View style={{backgroundColor: 'black', flex: 1}} />
+            ),
+            headerTintColor: 'white',
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

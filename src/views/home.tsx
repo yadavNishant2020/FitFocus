@@ -1,4 +1,4 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import tw from 'twrnc';
@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from '../reusableComponents/card';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
@@ -79,52 +79,64 @@ const Home = () => {
               <Text style={tw`text-white text-lg font-bold`}>
                 Workout Program
               </Text>
-              <View style={tw`flex-row gap-1`}>
-                <Text style={tw` `}>See All</Text>
-                <MaterialCommunityIcons
-                  name="arrow-top-right"
-                  size={18}
-                  style={tw` `}
-                />
-              </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Exercises', {showAll: true})
+                }>
+                <View style={tw`flex-row gap-1`}>
+                  <Text>See All</Text>
+                  <MaterialCommunityIcons name="arrow-top-right" size={18} />
+                </View>
+              </TouchableOpacity>
             </View>
-            <View></View>
             <View>
               <Card
                 imageSource={
                   'https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2017/10/bodybuilder-dumbbells-gym-1280.jpg?quality=86&strip=all'
                 }
                 Title={'Full Body Exercises'}
+                Muscle={'full body'}
+                navigation={navigation}
               />
               <Card
                 imageSource={
                   'https://hips.hearstapps.com/hmg-prod/images/chest-workout-with-cables-royalty-free-image-519935519-1558452745.jpg?crop=1.00xw:0.751xh;0,0.174xh&resize=640:*'
                 }
                 Title={'Chest Exercises'}
+                Muscle={'chest'}
+                navigation={navigation}
               />
               <Card
                 imageSource={
                   'https://149874912.v2.pressablecdn.com/wp-content/uploads/2023/11/Leg-Day-Workout.jpg'
                 }
                 Title={'Lower Body Exercises'}
+                Muscle={'lower body'}
+                navigation={navigation}
               />
               <Card
                 imageSource={
                   'https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2016/09/Bodybuilder-Working-Out-His-Upper-Body-With-Cable-Crossover-Exercise.jpg?quality=86&strip=all'
                 }
                 Title={'Upper Body Exercises'}
+                Muscle={'upper body'}
+                navigation={navigation}
               />
               <Card
                 imageSource={
                   'https://barbend.com/wp-content/uploads/2023/02/Barbend-Featured-Image-1600x900-A-person-performing-cable-biceps-curls.jpg'
                 }
                 Title={'Biceps Exercises'}
+                Muscle={'biceps'}
+                navigation={navigation}
               />
               <Card
                 imageSource={
                   'https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2019/12/arms-triceps-gym-cable-machine.jpg?w=1300&h=731&crop=1&quality=86&strip=all'
                 }
                 Title={'Triceps Exercises'}
+                Muscle={'Triceps'}
+                navigation={navigation}
               />
             </View>
           </View>

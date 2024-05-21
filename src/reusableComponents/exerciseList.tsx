@@ -16,7 +16,7 @@ const ExerciseList: React.FC<ExerciseListProps> = ({item, navigation}) => {
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={handlePress}
-      style={[tw`bg-white  m-2 rounded-md`, {elevation: 3}]}>
+      style={[tw`m-1 rounded-md`]}>
     <Header exercise={item} navigation={navigation} onPressInfo={handleInfoPress} />
     </TouchableOpacity>
   );

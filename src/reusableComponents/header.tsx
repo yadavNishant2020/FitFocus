@@ -7,14 +7,14 @@ const Header = ({exercise, onPressInfo, style}: any) => {
   return (
     <View
       style={[
-        tw`gap-1 mb-2 bg-white p-2 m-1 rounded-md flex-row justify-between items-center`,
+        tw`gap-1 mb-2 bg-[#1f293788] p-2 m-1 rounded-md flex-row justify-between items-center`,
       ]}>
       <View
         style={[
           tw`${style}`,
         ]}>
-        <Text style={tw`text-black text-xl capitalize max-w-72`}>{exercise.name}</Text>
-        <Text style={tw`text-gray-500 capitalize`}>
+        <Text style={tw`text-white text-xl capitalize max-w-72`}>{exercise.name}</Text>
+        <Text style={tw`text-gray-400 capitalize`}>
           {exercise.muscle} | {exercise.equipment}
         </Text>
       </View>
@@ -23,7 +23,7 @@ const Header = ({exercise, onPressInfo, style}: any) => {
           <MaterialCommunityIcons
             name="information"
             size={35}
-            style={tw`text-gray-700`}
+            style={tw`text-gray-200`}
           />
         </TouchableOpacity>
       )}
