@@ -7,6 +7,7 @@ import ExerciseDetails from './views/exerciseDetails';
 import {Text, View} from 'react-native';
 import WorkoutLogger from './views/workoutLogger';
 import Home from './views/home';
+import stepCounter from './reusableComponents/health';
 
 // Demo components for other tab screens
 const Profile = () => <Text>Profile Screen</Text>;

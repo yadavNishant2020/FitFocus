@@ -1,5 +1,5 @@
-import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import tw from 'twrnc';
 import SearchBar from '../reusableComponents/searchBar';
@@ -7,15 +7,30 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from '../reusableComponents/card';
+import useStepCounter from '../reusableComponents/health';
 
-const Home = ({navigation}: any) => {
+const Home = ({ navigation }: any) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const {
+    isInitialized,
+    permissionsGranted,
+    totalSteps,
+    totalCalories,
+    error,
+    handleRequestPermission,
+  } = useStepCounter();
+
+  useEffect(() => {
+    if (isInitialized && !permissionsGranted) {
+      handleRequestPermission();
+    }
+  }, [isInitialized, permissionsGranted, handleRequestPermission]);
 
   return (
     <LinearGradient
       colors={['#000000', '#4B749F']}
-      start={{x: 0.1, y: 0.1}}
-      end={{x: 1, y: 1}}
+      start={{ x: 0.1, y: 0.1 }}
+      end={{ x: 1, y: 1 }}
       style={[tw`h-full`]}>
       <ScrollView>
         <View style={[tw`m-4 gap-4`]}>
@@ -44,7 +59,9 @@ const Home = ({navigation}: any) => {
                 size={30}
                 style={tw`pb-6 text-[#6c93bd]`}
               />
-              <Text style={[tw`text-2xl font-bold text-white`]}>3000</Text>
+              <Text style={[tw`text-2xl font-bold text-white`]}>
+                {error ? 'N/A' : totalSteps}
+              </Text>
               <Text style={[tw``]}>Steps</Text>
             </View>
             <View style={[tw`flex-1 gap-2`]}>
@@ -57,7 +74,9 @@ const Home = ({navigation}: any) => {
                   size={30}
                   style={tw`text-[#6c93bd] pr-2`}
                 />
-                <Text style={[tw`text-2xl font-bold text-white`]}>240</Text>
+                <Text style={[tw`text-2xl font-bold text-white`]}>
+                  {error ? 'N/A' : totalCalories}
+                </Text>
                 <Text style={[tw``]}>/kcal</Text>
               </View>
               <View
@@ -81,7 +100,7 @@ const Home = ({navigation}: any) => {
               </Text>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('Exercises', {showAll: true})
+                  navigation.navigate('Exercises', { showAll: true })
                 }>
                 <View style={tw`flex-row gap-1`}>
                   <Text>See All</Text>
