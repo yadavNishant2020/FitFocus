@@ -22,8 +22,8 @@ const Header = ({exercise, onPressInfo, style}: any) => {
         <TouchableOpacity onPress={onPressInfo}>
           <MaterialCommunityIcons
             name="information"
-            size={35}
-            style={tw`text-gray-200`}
+            size={30}
+            style={tw`text-gray-400`}
           />
         </TouchableOpacity>
       )}

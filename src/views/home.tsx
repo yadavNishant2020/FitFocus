@@ -52,8 +52,8 @@ const Home = ({navigation}: any) => {
                 style={[
                   tw`bg-[#1f293788] flex-1 rounded-md justify-center items-center flex-row `,
                 ]}>
-                <MaterialCommunityIcons
-                  name="fire"
+                <MaterialIcons
+                  name="local-fire-department"
                   size={30}
                   style={tw`text-[#6c93bd] pr-2`}
                 />
