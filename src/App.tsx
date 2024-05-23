@@ -1,4 +1,4 @@
-import React from 'react';
+import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -7,7 +7,8 @@ import ExerciseDetails from './views/exerciseDetails';
 import {Text, View} from 'react-native';
 import WorkoutLogger from './views/workoutLogger';
 import Home from './views/home';
-import stepCounter from './reusableComponents/health';
+import Steps from './views/steps';
+import {StepCounterProvider} from './reusableComponents/health';
 
 // Demo components for other tab screens
 const Profile = () => <Text>Profile Screen</Text>;
@@ -35,64 +36,80 @@ const Tab = createBottomTabNavigator();
 //     />
 //   </Stack.Navigator>
 // );
-
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Exercises"
-          component={Exercises}
-          options={{
-            headerShown: true,
-            headerTitle: 'Exercises',
-            headerTitleStyle: {
-              color: 'white',
-            },
-            headerBackground: () => (
-              <View style={{backgroundColor: 'black', flex: 1}} />
-            ),
-            headerTintColor: 'white',
-          }}
-        />
-
-        <Stack.Screen
-          name="ExerciseDetails"
-          component={ExerciseDetails}
-          options={{
-            headerShown: true,
-            headerTitleStyle: {
-              color: 'white',
-            },
-            headerBackground: () => (
-              <View style={{backgroundColor: 'black', flex: 1}} />
-            ),
-            headerTintColor: 'white',
-          }}
-        />
-        <Stack.Screen
-          name="WorkoutLogger"
-          component={WorkoutLogger}
-          options={{
-            headerShown: true,
-            headerTitle: `Workout Logger`,
-            headerTitleStyle: {
-              color: 'white',
-            },
-            headerBackground: () => (
-              <View style={{backgroundColor: 'black', flex: 1}} />
-            ),
-            headerTintColor: 'white',
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <StepCounterProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Steps"
+            component={Steps}
+            options={{
+              headerShown: true,
+              headerTitle: 'Steps',
+              headerTitleStyle: {
+                color: 'white',
+              },
+              headerBackground: () => (
+                <View style={{ backgroundColor: 'black', flex: 1 }} />
+              ),
+              headerTintColor: 'white',
+            }}
+          />
+          <Stack.Screen
+            name="Exercises"
+            component={Exercises}
+            options={{
+              headerShown: true,
+              headerTitle: 'Exercises',
+              headerTitleStyle: {
+                color: 'white',
+              },
+              headerBackground: () => (
+                <View style={{ backgroundColor: 'black', flex: 1 }} />
+              ),
+              headerTintColor: 'white',
+            }}
+          />
+          <Stack.Screen
+            name="ExerciseDetails"
+            component={ExerciseDetails}
+            options={{
+              headerShown: true,
+              headerTitleStyle: {
+                color: 'white',
+              },
+              headerBackground: () => (
+                <View style={{ backgroundColor: 'black', flex: 1 }} />
+              ),
+              headerTintColor: 'white',
+            }}
+          />
+          <Stack.Screen
+            name="WorkoutLogger"
+            component={WorkoutLogger}
+            options={{
+              headerShown: true,
+              headerTitle: 'Workout Logger',
+              headerTitleStyle: {
+                color: 'white',
+              },
+              headerBackground: () => (
+                <View style={{ backgroundColor: 'black', flex: 1 }} />
+              ),
+              headerTintColor: 'white',
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </StepCounterProvider>
   );
 };
+
 
 export default App;

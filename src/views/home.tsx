@@ -1,5 +1,5 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import tw from 'twrnc';
 import SearchBar from '../reusableComponents/searchBar';
@@ -7,9 +7,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from '../reusableComponents/card';
-import useStepCounter from '../reusableComponents/health';
+import {useStepCounter} from '../reusableComponents/health';
 
-const Home = ({ navigation }: any) => {
+const Home = ({navigation}: any) => {
   const [searchQuery, setSearchQuery] = useState('');
   const {
     isInitialized,
@@ -29,8 +29,8 @@ const Home = ({ navigation }: any) => {
   return (
     <LinearGradient
       colors={['#000000', '#4B749F']}
-      start={{ x: 0.1, y: 0.1 }}
-      end={{ x: 1, y: 1 }}
+      start={{x: 0.1, y: 0.1}}
+      end={{x: 1, y: 1}}
       style={[tw`h-full`]}>
       <ScrollView>
         <View style={[tw`m-4 gap-4`]}>
@@ -50,7 +50,8 @@ const Home = ({ navigation }: any) => {
           </View>
           <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
           <View style={[tw`flex-row h-44 gap-2 `]}>
-            <View
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Steps')}
               style={[
                 tw`bg-[#1f293788] flex-1 rounded-md justify-center items-center`,
               ]}>
@@ -63,7 +64,7 @@ const Home = ({ navigation }: any) => {
                 {error ? 'N/A' : totalSteps}
               </Text>
               <Text style={[tw``]}>Steps</Text>
-            </View>
+            </TouchableOpacity>
             <View style={[tw`flex-1 gap-2`]}>
               <View
                 style={[
@@ -77,7 +78,7 @@ const Home = ({ navigation }: any) => {
                 <Text style={[tw`text-2xl font-bold text-white`]}>
                   {error ? 'N/A' : totalCalories}
                 </Text>
-                <Text style={[tw``]}>/kcal</Text>
+                <Text style={[tw``]}>/cal</Text>
               </View>
               <View
                 style={[
@@ -100,7 +101,7 @@ const Home = ({ navigation }: any) => {
               </Text>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('Exercises', { showAll: true })
+                  navigation.navigate('Exercises', {showAll: true})
                 }>
                 <View style={tw`flex-row gap-1`}>
                   <Text>See All</Text>

@@ -1,11 +1,27 @@
-import {useEffect, useState} from 'react';
-import {
-  initialize,
-  requestPermission,
-  readRecords,
-} from 'react-native-health-connect';
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { initialize, requestPermission, readRecords } from 'react-native-health-connect';
 
-const useStepCounter = () => {
+interface StepCounterContextType {
+  isInitialized: boolean;
+  permissionsGranted: boolean;
+  totalSteps: number;
+  totalCalories: number;
+  error: string | null;
+  handleRequestPermission: () => Promise<void>;
+}
+
+const defaultContextValue: StepCounterContextType = {
+  isInitialized: false,
+  permissionsGranted: false,
+  totalSteps: 0,
+  totalCalories: 0,
+  error: null,
+  handleRequestPermission: async () => {},
+};
+
+const StepCounterContext = createContext<StepCounterContextType>(defaultContextValue);
+
+export const StepCounterProvider = ({ children }: { children: ReactNode }) => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [permissionsGranted, setPermissionsGranted] = useState(false);
   const [totalSteps, setTotalSteps] = useState<number>(0);
@@ -17,6 +33,9 @@ const useStepCounter = () => {
       try {
         const initialized = await initialize();
         setIsInitialized(initialized);
+        if (initialized) {
+          await handleRequestPermission();
+        }
       } catch (err) {
         setError('Failed to initialize Health Connect');
         console.error('Initialization error:', err);
@@ -27,12 +46,18 @@ const useStepCounter = () => {
   }, []);
 
   useEffect(() => {
+    const fetchData = async () => {
+      if (permissionsGranted) {
+        await handleReadRecords();
+      }
+    };
+
     let interval: NodeJS.Timeout;
     if (permissionsGranted) {
-      interval = setInterval(() => {
-        handleReadRecords();
-      }, 1000); 
+      fetchData(); // Initial fetch
+      interval = setInterval(fetchData, 20000); // Subsequent fetches every 20 seconds
     }
+
     return () => {
       clearInterval(interval);
     };
@@ -41,14 +66,12 @@ const useStepCounter = () => {
   const handleRequestPermission = async () => {
     try {
       const granted: any = await requestPermission([
-        {accessType: 'read', recordType: 'Steps'},
-        {accessType: 'read', recordType: 'TotalCaloriesBurned'},
+        { accessType: 'read', recordType: 'Steps' },
+        { accessType: 'read', recordType: 'TotalCaloriesBurned' },
       ]);
       setPermissionsGranted(granted);
       if (!granted) {
-        setError(
-          'Permission not granted for reading Steps or TotalCaloriesBurned',
-        );
+        setError('Permission not granted for reading Steps or TotalCaloriesBurned');
       }
     } catch (err) {
       setError('Error requesting permission');
@@ -105,9 +128,8 @@ const useStepCounter = () => {
       }
 
       if (calorieResult && calorieResult.length > 0) {
-        // console.log(calorieResult);
         const totalCalories = calorieResult.reduce((acc: any, record: any) => {
-          return acc + record.energy.inKilocalories; 
+          return acc + record.energy.inKilocalories;
         }, 0);
 
         const formattedCalories = totalCalories.toFixed(0).replace(/\.0$/, '');
@@ -122,14 +144,14 @@ const useStepCounter = () => {
     }
   };
 
-  return {
-    isInitialized,
-    permissionsGranted,
-    totalSteps,
-    totalCalories,
-    error,
-    handleRequestPermission,
-  };
+  return (
+    <StepCounterContext.Provider
+      value={{ isInitialized, permissionsGranted, totalSteps, totalCalories, error, handleRequestPermission }}>
+      {children}
+    </StepCounterContext.Provider>
+  );
 };
 
-export default useStepCounter;
+export const useStepCounter = () => {
+  return useContext(StepCounterContext);
+};
