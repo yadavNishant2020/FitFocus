@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from '../reusableComponents/card';
-import {useStepCounter} from '../reusableComponents/health';
+import {useHealth} from '../hooks/health';
 
 const Home = ({navigation}: any) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +18,7 @@ const Home = ({navigation}: any) => {
     totalCalories,
     error,
     handleRequestPermission,
-  } = useStepCounter();
+  } = useHealth();
 
   useEffect(() => {
     if (isInitialized && !permissionsGranted) {

@@ -8,7 +8,7 @@ import {Text, View} from 'react-native';
 import WorkoutLogger from './views/workoutLogger';
 import Home from './views/home';
 import Steps from './views/steps';
-import {StepCounterProvider} from './reusableComponents/health';
+import {HealthProvider} from './hooks/health';
 
 // Demo components for other tab screens
 const Profile = () => <Text>Profile Screen</Text>;
@@ -38,13 +38,13 @@ const Tab = createBottomTabNavigator();
 // );
 const App = () => {
   return (
-    <StepCounterProvider>
+    <HealthProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
             component={Home}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="Steps"
@@ -60,6 +60,7 @@ const App = () => {
               ),
               headerTintColor: 'white',
             }}
+            // options={{headerShown: false}}
           />
           <Stack.Screen
             name="Exercises"
@@ -71,7 +72,7 @@ const App = () => {
                 color: 'white',
               },
               headerBackground: () => (
-                <View style={{ backgroundColor: 'black', flex: 1 }} />
+                <View style={{backgroundColor: 'black', flex: 1}} />
               ),
               headerTintColor: 'white',
             }}
@@ -85,7 +86,7 @@ const App = () => {
                 color: 'white',
               },
               headerBackground: () => (
-                <View style={{ backgroundColor: 'black', flex: 1 }} />
+                <View style={{backgroundColor: 'black', flex: 1}} />
               ),
               headerTintColor: 'white',
             }}
@@ -100,16 +101,15 @@ const App = () => {
                 color: 'white',
               },
               headerBackground: () => (
-                <View style={{ backgroundColor: 'black', flex: 1 }} />
+                <View style={{backgroundColor: 'black', flex: 1}} />
               ),
               headerTintColor: 'white',
             }}
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </StepCounterProvider>
+    </HealthProvider>
   );
 };
-
 
 export default App;
