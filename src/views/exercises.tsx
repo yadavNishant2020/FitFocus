@@ -10,11 +10,16 @@ const Exercises = ({navigation, route}: any) => {
   const [searchQuery, setSearchQuery] = useState('');
   const { showAll } = route.params || {}; 
 
-  const filteredExercises = exercises.filter(exercise =>
-    searchQuery
-      ? exercise.name.toLowerCase().includes(searchQuery.toLowerCase())
-      : showAll || exercise.muscle.toLowerCase().includes(route.params?.Muscle?.toLowerCase()), 
-  );
+  const filteredExercises = exercises.filter(exercise => {
+    if (searchQuery.length > 0) {
+      return exercise.name.toLowerCase().includes(searchQuery.toLowerCase());
+    } else if (route.params?.Muscle) {
+      return exercise.muscle.toLowerCase().includes(route.params.Muscle.toLowerCase());
+    } else {
+      return true; // Show all exercises by default
+    }
+  });
+
   return (
     <LinearGradient
     colors={['#000000', '#4B749F']}
