@@ -86,7 +86,7 @@ const App = () => {
           screenOptions={({route}) => ({
             headerShown: route.name === 'Steps' || route.name === 'Exercises',
             headerTitleAlign: 'center',
-            headerTitleStyle: {color: 'white', fontSize: 30},
+            headerTitleStyle: {color: 'white', fontSize: 25},
             headerBackground: () => (
               <View style={{backgroundColor: 'black', flex: 1}} />
             ),

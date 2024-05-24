@@ -100,6 +100,31 @@ const Steps = () => {
           hideLegend={false}
           style={{borderRadius: 20, marginLeft: -50}}
         />
+         <View style={tw`my-5 flex-row w-full justify-evenly`}>
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="arrow-left"
+              color="white"
+              size={20}
+              onPress={handlePrevDate}
+            />
+          </TouchableOpacity>
+          <Text style={tw`text-xl text-white font-bold`}>
+            {isToday(selectedDate)
+              ? 'Today'
+              : isYesterday(selectedDate)
+              ? 'Yesterday'
+              : format(selectedDate, 'MMMM d')}
+          </Text>
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="arrow-right"
+              color="white"
+              size={20}
+              onPress={handleNextDate}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={tw`flex-row gap-15 p-5 justify-evenly flex-wrap mt-8 `}>
           <View style={tw`flex-row items-center gap-3 justify-center`}>
             <Ionicons name="footsteps" size={30} style={tw`text-[#6c93bd]`} />
@@ -133,31 +158,7 @@ const Steps = () => {
             <Value label="FLOORS" value={totalFloorsClimed.toString()} />
           </View>
         </View>
-        <View style={tw`my-20 flex-row w-full justify-evenly`}>
-          <TouchableOpacity>
-            <MaterialCommunityIcons
-              name="arrow-left"
-              color="white"
-              size={20}
-              onPress={handlePrevDate}
-            />
-          </TouchableOpacity>
-          <Text style={tw`text-2xl text-white font-bold`}>
-            {isToday(selectedDate)
-              ? 'Today'
-              : isYesterday(selectedDate)
-              ? 'Yesterday'
-              : format(selectedDate, 'MMMM d')}
-          </Text>
-          <TouchableOpacity>
-            <MaterialCommunityIcons
-              name="arrow-right"
-              color="white"
-              size={20}
-              onPress={handleNextDate}
-            />
-          </TouchableOpacity>
-        </View>
+       
       </View>
     </LinearGradient>
   );
