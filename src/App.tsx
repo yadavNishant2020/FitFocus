@@ -3,8 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {HealthProvider} from './hooks/health';
 import Exercises from './views/exercises';
 import ExerciseDetails from './views/exerciseDetails';
@@ -13,13 +12,9 @@ import Home from './views/home';
 import Steps from './views/steps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// Demo component for Settings screen
-const Settings = () => <Text>Settings Screen</Text>;
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Define your stack navigator screens
 const StackNavigator = () => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
@@ -77,7 +72,6 @@ const StackNavigator = () => (
   </Stack.Navigator>
 );
 
-// Main app component
 const App = () => {
   return (
     <HealthProvider>
@@ -104,7 +98,7 @@ const App = () => {
             },
             tabBarActiveTintColor: 'white',
             tabBarInactiveTintColor: '#4B749F',
-            tabBarStyle: {backgroundColor: '#1f2937'},
+            tabBarStyle: {backgroundColor: '#1f2937', height: 60, paddingBottom: 8},
           })}>
           <Tab.Screen name="Home" component={StackNavigator} />
           <Tab.Screen name="Steps" component={Steps} />

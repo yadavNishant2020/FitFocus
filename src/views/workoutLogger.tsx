@@ -274,11 +274,12 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
             placeholderTextColor={'#ffffff'}
           />
         ) : null}
-        <View style={[tw`gap-1 flex-row justify-evenly bg-[#1f293788] p-2 pb-0`]}>
+        <View
+          style={[tw`gap-1 flex-row justify-evenly bg-[#1f293788] p-2 pb-0`]}>
           <View style={tw`p-1 w-1/2 h-3/5`}>
             <Text style={tw`text-white`}>Weight(Kg)</Text>
             <TextInput
-              style={tw`border-b-2 border-gray-600 text-gray-700`}
+              style={tw`border-b-2 border-gray-600 text-white`}
               value={weight}
               onChangeText={handleWeightChange}
               keyboardType="numeric"
@@ -287,14 +288,15 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
           <View style={tw`p-1 w-1/2 h-3/5`}>
             <Text style={tw` text-white`}>Repetitions</Text>
             <TextInput
-              style={tw`border-b-2 border-gray-600 text-gray-700 `}
+              style={tw`border-b-2 border-gray-600 text-white`}
               value={reps}
               onChangeText={handleRepsChange}
               keyboardType="numeric"
             />
           </View>
         </View>
-        <View style={[tw`gap-1 flex-row justify-evenly bg-[#1f293788] p-2 pt-0`]}>
+        <View
+          style={[tw`gap-1 flex-row justify-evenly bg-[#1f293788] p-2 pt-0`]}>
           <TouchableOpacity
             onPress={() => setIsCommentBoxOpen(!isCommentBoxOpen)}
             activeOpacity={0.9}
@@ -306,7 +308,7 @@ const WorkoutLogger = ({route, navigation}: {route: any; navigation: any}) => {
           <TouchableOpacity
             onPress={handleComplete}
             style={tw`p-1 bg-gray-400 w-1/2 h-12 rounded-full justify-center items-center`}>
-            <Text style={tw` text-white`}>Complete</Text>
+            <Text style={tw` text-black`}>Complete</Text>
           </TouchableOpacity>
         </View>
       </LinearGradient>

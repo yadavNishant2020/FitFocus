@@ -26,7 +26,6 @@ import { Alert } from "react-native";
         `setData_${exerciseName}`,
       );
       return storedSetData ? JSON.parse(storedSetData) : [];
-      console.log('Data retrived successfully for exercise:', exerciseName);
 
     } catch (error) {
       console.error(

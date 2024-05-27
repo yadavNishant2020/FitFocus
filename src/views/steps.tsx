@@ -20,7 +20,7 @@ const Steps = () => {
   const {totalSteps, totalCalories, totalFloorsClimed, handleReadRecords} = useHealth();
   const stepsProgress = totalSteps / STEPS_GOAL;
   const caloriesProgress = totalCalories / CALORIES_GOAL;
-  const totalDistance: any = (totalCalories / 1000).toFixed(2);
+  const totalDistance: number = parseFloat((totalCalories / 1000).toFixed(2));
   const distanceProgress = totalDistance / DISTANCE_GOAL;
 
   const data = {

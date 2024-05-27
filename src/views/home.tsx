@@ -8,8 +8,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from '../reusableComponents/card';
 import {useHealth} from '../hooks/health';
+import cardData from '../assets/data/workoutPrograms.json'; // Adjust the path accordingly
+import { ExerciseListProps } from '../interfaces';
 
-const Home = ({navigation}: any) => {
+const Home = ({navigation}:ExerciseListProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const {
     isInitialized,
@@ -110,54 +112,15 @@ const Home = ({navigation}: any) => {
               </TouchableOpacity>
             </View>
             <View>
-              <Card
-                imageSource={
-                  'https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2017/10/bodybuilder-dumbbells-gym-1280.jpg?quality=86&strip=all'
-                }
-                Title={'Full Body Exercises'}
-                Muscle={'full body'}
-                navigation={navigation}
-              />
-              <Card
-                imageSource={
-                  'https://hips.hearstapps.com/hmg-prod/images/chest-workout-with-cables-royalty-free-image-519935519-1558452745.jpg?crop=1.00xw:0.751xh;0,0.174xh&resize=640:*'
-                }
-                Title={'Chest Exercises'}
-                Muscle={'chest'}
-                navigation={navigation}
-              />
-              <Card
-                imageSource={
-                  'https://149874912.v2.pressablecdn.com/wp-content/uploads/2023/11/Leg-Day-Workout.jpg'
-                }
-                Title={'Lower Body Exercises'}
-                Muscle={'lower body'}
-                navigation={navigation}
-              />
-              <Card
-                imageSource={
-                  'https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2016/09/Bodybuilder-Working-Out-His-Upper-Body-With-Cable-Crossover-Exercise.jpg?quality=86&strip=all'
-                }
-                Title={'Upper Body Exercises'}
-                Muscle={'upper body'}
-                navigation={navigation}
-              />
-              <Card
-                imageSource={
-                  'https://barbend.com/wp-content/uploads/2023/02/Barbend-Featured-Image-1600x900-A-person-performing-cable-biceps-curls.jpg'
-                }
-                Title={'Biceps Exercises'}
-                Muscle={'biceps'}
-                navigation={navigation}
-              />
-              <Card
-                imageSource={
-                  'https://i0.wp.com/www.muscleandfitness.com/wp-content/uploads/2019/12/arms-triceps-gym-cable-machine.jpg?w=1300&h=731&crop=1&quality=86&strip=all'
-                }
-                Title={'Triceps Exercises'}
-                Muscle={'Triceps'}
-                navigation={navigation}
-              />
+              {cardData.map((card, index) => (
+                <Card
+                  key={index}
+                  imageSource={card.imageSource}
+                  Title={card.Title}
+                  Muscle={card.Muscle}
+                  navigation={navigation}
+                />
+              ))}
             </View>
           </View>
         </View>

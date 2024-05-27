@@ -5,8 +5,9 @@ import exercises from '../assets/data/exercises.json';
 import ExerciseList from '../reusableComponents/exerciseList';
 import SearchBar from '../reusableComponents/searchBar';
 import LinearGradient from 'react-native-linear-gradient';
+import { ExerciseListProps } from '../interfaces';
 
-const Exercises = ({navigation, route}: any) => {
+const Exercises = ({navigation, route}: ExerciseListProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const { showAll } = route.params || {}; 
 
