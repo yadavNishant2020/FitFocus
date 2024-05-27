@@ -4,41 +4,33 @@ import {
   setUpdateIntervalForType,
   SensorTypes
 } from 'react-native-sensors';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 const usePedometer = () => {
   const [steps, setSteps] = useState(0);
-  const [magnitudePrevious, setMagnitudePrevious] = useState(0);
+  const [previousMagnitude, setPreviousMagnitude] = useState(0);
+  const [magnitudeThreshold, setMagnitudeThreshold] = useState(15); // Adjustable threshold
 
   useEffect(() => {
-    // Set update interval to 400ms for the accelerometer
-    setUpdateIntervalForType(SensorTypes.accelerometer, 400);
+    setUpdateIntervalForType(SensorTypes.accelerometer, 400); // Set update interval to 400ms
 
     const subscription = accelerometer
       .pipe(
-        map(({ x, y, z }) => {
-          // Calculate the magnitude of the acceleration vector
-          return Math.sqrt(x * x + y * y + z * z);
+        map(({ x, y, z }) => Math.sqrt(x * x + y * y + z * z)), // Calculate magnitude
+        filter(magnitude => {
+          const isPeak = magnitude > previousMagnitude;
+          const isSignificantChange = Math.abs(magnitude - previousMagnitude) > magnitudeThreshold;
+          setPreviousMagnitude(magnitude);
+          return isPeak && isSignificantChange;
         })
       )
-      .subscribe({        
-        next: (magnitude) => {
-          const magnitudeDelta = magnitude - magnitudePrevious;
-          setMagnitudePrevious(magnitude);
-
-          // Update steps if the magnitude change exceeds the threshold
-          if (magnitudeDelta > 2) {
-            setSteps((prevSteps) => prevSteps + 1);
-          }
-        },
+      .subscribe({
+        next: () => setSteps(prevSteps => prevSteps + 1),
         error: (error) => console.log('The sensor is not available', error),
       });
 
-    // Clean up the subscription on unmount
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [magnitudePrevious]);
+    return () => subscription.unsubscribe();
+  }, [previousMagnitude, magnitudeThreshold]);
 
   return steps;
 };
