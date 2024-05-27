@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "155469763068",
+    "project_id": "fitfocus-423409",
+    "storage_bucket": "fitfocus-423409.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155469763068:android:dc4b3d6290a715259f6279",
+        "android_client_info": {
+          "package_name": "com.fitfocus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155469763068-qb9s0jp56qdia11cl4118l9l6q12m8i7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitfocus",
+            "certificate_hash": "b7221727aa23aef992999ccc3242c729f485c715"
+          }
+        },
+        {
+          "client_id": "155469763068-g4qder74a4tqbfvtp7qtimorm5lm50ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARZ3Xf44GY9y6eGyCzopXtR5IBlA25lJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155469763068-g4qder74a4tqbfvtp7qtimorm5lm50ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

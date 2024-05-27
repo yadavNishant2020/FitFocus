@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from '../reusableComponents/card';
 import {useHealth} from '../hooks/health';
-import cardData from '../assets/data/workoutPrograms.json'; // Adjust the path accordingly
+import cardData from '../assets/data/workoutPrograms.json';
 import { ExerciseListProps } from '../interfaces';
 
 const Home = ({navigation}:ExerciseListProps) => {

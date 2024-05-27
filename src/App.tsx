@@ -11,12 +11,24 @@ import WorkoutLogger from './views/workoutLogger';
 import Home from './views/home';
 import Steps from './views/steps';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SignUpScreen from './views/Authentication/signUp';
+import SignInScreen from './views/Authentication/signIn';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const StackNavigator = () => (
   <Stack.Navigator>
+    <Stack.Screen
+      name="Sign In"
+      component={SignInScreen}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="Sign Up"
+      component={SignUpScreen}
+      options={{headerShown: false}}
+    />
     <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
     <Stack.Screen
       name="Steps"
@@ -98,7 +110,11 @@ const App = () => {
             },
             tabBarActiveTintColor: 'white',
             tabBarInactiveTintColor: '#4B749F',
-            tabBarStyle: {backgroundColor: '#1f2937', height: 60, paddingBottom: 8},
+            tabBarStyle: {
+              backgroundColor: '#1f2937',
+              height: 60,
+              paddingBottom: 8,
+            },
           })}>
           <Tab.Screen name="Home" component={StackNavigator} />
           <Tab.Screen name="Steps" component={Steps} />
