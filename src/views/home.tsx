@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import tw from 'twrnc';
 import SearchBar from '../reusableComponents/searchBar';
@@ -7,9 +7,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Card from '../reusableComponents/card';
-import {useHealth} from '../hooks/health';
+import { useHealth } from '../hooks/health';
+import usePedometer from '../hooks/pedometer'; // Adjust the path as needed
 
-const Home = ({navigation}: any) => {
+const Home = ({ navigation }: any) => {
   const [searchQuery, setSearchQuery] = useState('');
   const {
     isInitialized,
@@ -20,6 +21,8 @@ const Home = ({navigation}: any) => {
     handleRequestPermission,
   } = useHealth();
 
+  const pedometerSteps = usePedometer(); // Using the usePedometer hook
+
   useEffect(() => {
     if (isInitialized && !permissionsGranted) {
       handleRequestPermission();
@@ -29,8 +32,8 @@ const Home = ({navigation}: any) => {
   return (
     <LinearGradient
       colors={['#000000', '#4B749F']}
-      start={{x: 0.1, y: 0.1}}
-      end={{x: 1, y: 1}}
+      start={{ x: 0.1, y: 0.1 }}
+      end={{ x: 1, y: 1 }}
       style={[tw`h-full`]}>
       <ScrollView>
         <View style={[tw`m-4 gap-4`]}>
@@ -61,7 +64,7 @@ const Home = ({navigation}: any) => {
                 style={tw`pb-6 text-[#6c93bd]`}
               />
               <Text style={[tw`text-2xl font-bold text-white`]}>
-                {error ? 'N/A' : totalSteps}
+                {error ? 'N/A' : pedometerSteps}
               </Text>
               <Text style={[tw``]}>Steps</Text>
             </TouchableOpacity>
@@ -101,7 +104,7 @@ const Home = ({navigation}: any) => {
               </Text>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('Exercises', {showAll: true})
+                  navigation.navigate('Exercises', { showAll: true })
                 }>
                 <View style={tw`flex-row gap-1`}>
                   <Text>See All</Text>

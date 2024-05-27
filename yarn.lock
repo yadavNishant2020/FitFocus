@@ -3581,6 +3581,7 @@ __metadata:
     react-native-reanimated: next
     react-native-safe-area-context: ^4.10.1
     react-native-screens: ^3.31.1
+    react-native-sensors: ^7.3.6
     react-native-svg: ^15.3.0
     react-native-svg-transformer: ^1.4.0
     react-native-vector-icons: ^10.1.0
@@ -9947,6 +9948,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-sensors@npm:^7.3.6":
+  version: 7.3.6
+  resolution: "react-native-sensors@npm:7.3.6"
+  dependencies:
+    rxjs: ">= 6"
+  peerDependencies:
+    prop-types: ^15.6.0
+    react-native: ">=0.39.0"
+  checksum: e7a6dd2564ba0ff167465ab4d9f813cdc896f5be342022b2339c57446095392e6a4ed88144cb3c873184a98f32dd08fc45a10d7bed21682495815dfc1e304c1e
+  languageName: node
+  linkType: hard
+
 "react-native-svg-transformer@npm:^1.4.0":
   version: 1.4.0
   resolution: "react-native-svg-transformer@npm:1.4.0"
@@ -10462,7 +10475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.5.5":
+"rxjs@npm:>= 6, rxjs@npm:^7.5.5":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:
